@@ -5,7 +5,7 @@ from PySide6.QtGui import QIcon, QDesktopServices, QColor
 from PySide6.QtWidgets import QApplication, QHBoxLayout, QFrame, QWidget
 
 from qfluentwidgets import (NavigationAvatarWidget, NavigationItemPosition, MessageBox, FluentWindow,
-                            SplashScreen, SystemThemeListener, isDarkTheme)
+                            SplashScreen, SystemThemeListener, isDarkTheme, SubtitleLabel, setFont)
 from qfluentwidgets import FluentIcon as FIF
 
 from .gallery_interface import GalleryInterface
@@ -29,6 +29,20 @@ from ..common.signal_bus import signalBus
 from ..common.translator import Translator
 from ..common import resource
 
+# [test]
+class TempWidget(QFrame):
+
+    def __init__(self, text: str, parent=None):
+        super().__init__(parent=parent)
+        self.label = SubtitleLabel(text, self)
+        self.hBoxLayout = QHBoxLayout(self)
+
+        setFont(self.label, 24)
+        self.label.setAlignment(Qt.AlignCenter)
+        self.hBoxLayout.addWidget(self.label, 1, Qt.AlignCenter)
+
+        # 必须给子界面设置全局唯一的对象名
+        self.setObjectName(text.replace(' ', '-'))
 
 class MainWindow(FluentWindow):
 
@@ -55,6 +69,14 @@ class MainWindow(FluentWindow):
         self.textInterface = TextInterface(self)
         self.viewInterface = ViewInterface(self)
 
+        # [test]
+        self.tempInterface1 = TempWidget('Home Interface', self)
+        self.tempInterface2 = TempWidget('Music Interface', self)
+        self.tempInterface3 = TempWidget('Video Interface', self)
+        self.tempInterface4 = TempWidget('Setting Interface', self)
+        self.tempInterface5 = TempWidget('Album Interface', self)
+        self.tempInterface6 = TempWidget('Album Interface 1', self)
+
         # enable acrylic effect
         self.navigationInterface.setAcrylicEnabled(True)
 
@@ -77,7 +99,7 @@ class MainWindow(FluentWindow):
         t = Translator()
         self.addSubInterface(self.homeInterface, FIF.HOME, self.tr('Home'))
         self.addSubInterface(self.iconInterface, Icon.EMOJI_TAB_SYMBOLS, t.icons)
-        self.navigationInterface.addSeparator()
+        self.navigationInterface.addSeparator() # 分割线
 
         pos = NavigationItemPosition.SCROLL
         self.addSubInterface(self.basicInputInterface, FIF.CHECKBOX,t.basicInput, pos)
@@ -91,6 +113,14 @@ class MainWindow(FluentWindow):
         self.addSubInterface(self.statusInfoInterface, FIF.CHAT, t.statusInfo, pos)
         self.addSubInterface(self.textInterface, Icon.TEXT, t.text, pos)
         self.addSubInterface(self.viewInterface, Icon.GRID, t.view, pos)
+
+        # [test]
+        self.addSubInterface(self.tempInterface1, FIF.SETTING, 'Settings1', NavigationItemPosition.SCROLL)
+        self.addSubInterface(self.tempInterface2, FIF.SETTING, 'Settings2', NavigationItemPosition.SCROLL)
+        self.addSubInterface(self.tempInterface3, FIF.SETTING, 'Settings3', NavigationItemPosition.SCROLL)
+        self.addSubInterface(self.tempInterface4, FIF.SETTING, 'Settings4', NavigationItemPosition.SCROLL)
+        self.addSubInterface(self.tempInterface5, FIF.SETTING, 'Settings5', NavigationItemPosition.SCROLL)
+        self.addSubInterface(self.tempInterface6, FIF.SETTING, 'Settings6', NavigationItemPosition.BOTTOM)
 
         # add custom widget to bottom
         self.navigationInterface.addItem(
