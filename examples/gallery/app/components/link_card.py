@@ -70,6 +70,7 @@ class LinkCardView(SingleDirectionScrollArea):
         card = LinkCard(icon, title, content, url, self.view)
         self.hBoxLayout.addWidget(card, 0, Qt.AlignLeft)
 
+    # [test] 重写滚动事件
     def wheelEvent(self, e):
         # 水平方向滚动，把水平 delta 传给平滑滚动
         self.smoothScroll.wheelEvent(e)
