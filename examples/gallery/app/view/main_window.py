@@ -85,7 +85,7 @@ class MainWindow(FluentWindow):
 
         # add items to navigation interface
         self.initNavigation()
-        # self.splashScreen.finish() # 原本结束太快了，我把它放在了initWindow里，加了个定时器延时，才看清了这个开机启动图标
+        self.splashScreen.finish() # 原本结束太快了，我把它放在了initWindow里，加了个定时器延时，才看清了这个开机启动图标
 
         # start theme listener
         self.themeListener.start()
@@ -156,7 +156,7 @@ class MainWindow(FluentWindow):
         QApplication.processEvents()
 
         # [test] 让启动屏幕显示更长时间, 因为现在启动太快了，根本看不清这个图标
-        QTimer.singleShot(5000, self.splashScreen.finish)
+        # QTimer.singleShot(5000, self.splashScreen.finish)
 
     def onSupport(self):
         language = cfg.get(cfg.language).value
