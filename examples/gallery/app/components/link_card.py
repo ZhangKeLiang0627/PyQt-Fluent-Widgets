@@ -54,13 +54,13 @@ class LinkCardView(SingleDirectionScrollArea):
         self.hBoxLayout = QHBoxLayout(self.view)
 
         self.hBoxLayout.setContentsMargins(36, 0, 0, 0)
-        self.hBoxLayout.setSpacing(12)
+        self.hBoxLayout.setSpacing(12) # 元素间距
         self.hBoxLayout.setAlignment(Qt.AlignLeft)
 
         self.setWidget(self.view)
         self.setWidgetResizable(True)
         self.setVerticalScrollBarPolicy(Qt.ScrollBarAlwaysOff)
-        self.setHorizontalScrollBarPolicy(Qt.ScrollBarAlwaysOff)
+        # self.setHorizontalScrollBarPolicy(Qt.ScrollBarAlwaysOff)
 
         self.view.setObjectName('view')
         StyleSheet.LINK_CARD.apply(self)
@@ -69,3 +69,8 @@ class LinkCardView(SingleDirectionScrollArea):
         """ add link card """
         card = LinkCard(icon, title, content, url, self.view)
         self.hBoxLayout.addWidget(card, 0, Qt.AlignLeft)
+
+    def wheelEvent(self, e):
+        # 水平方向滚动，把水平 delta 传给平滑滚动
+        self.smoothScroll.wheelEvent(e)
+        e.setAccepted(True)

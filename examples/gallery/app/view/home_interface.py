@@ -27,7 +27,7 @@ class BannerWidget(QWidget):
 
         self.galleryLabel.setObjectName('galleryLabel')
 
-        self.vBoxLayout.setSpacing(0)
+        self.vBoxLayout.setSpacing(0) # 元素间距
         self.vBoxLayout.setContentsMargins(0, 20, 0, 0)
         self.vBoxLayout.addWidget(self.galleryLabel)
         self.vBoxLayout.addWidget(self.linkCardView, 1, Qt.AlignBottom)
@@ -54,6 +54,13 @@ class BannerWidget(QWidget):
             self.tr(
                 'Find samples that demonstrate specific tasks, features and APIs.'),
             EXAMPLE_URL
+        )
+
+        self.linkCardView.addCard(
+            FluentIcon.FEEDBACK,
+            self.tr('Send feedback'),
+            self.tr('Help us improve PyQt-Fluent-Widgets by providing feedback.'),
+            FEEDBACK_URL
         )
 
         self.linkCardView.addCard(
