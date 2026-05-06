@@ -4,6 +4,7 @@ from PySide6.QtCore import Qt, Signal, QEasingCurve, QUrl, QSize, QTimer
 from PySide6.QtGui import QIcon, QDesktopServices, QColor
 from PySide6.QtWidgets import QApplication, QHBoxLayout, QFrame, QWidget
 
+# [test]
 from qfluentwidgets import (NavigationAvatarWidget, NavigationItemPosition, MessageBox, FluentWindow,
                             SplashScreen, SystemThemeListener, isDarkTheme, SubtitleLabel, setFont)
 from qfluentwidgets import FluentIcon as FIF
@@ -84,7 +85,7 @@ class MainWindow(FluentWindow):
 
         # add items to navigation interface
         self.initNavigation()
-        self.splashScreen.finish()
+        # self.splashScreen.finish() # 原本结束太快了，我把它放在了initWindow里，加了个定时器延时，才看清了这个开机启动图标
 
         # start theme listener
         self.themeListener.start()
@@ -145,7 +146,7 @@ class MainWindow(FluentWindow):
 
         # create splash screen
         self.splashScreen = SplashScreen(self.windowIcon(), self)
-        self.splashScreen.setIconSize(QSize(106, 106))
+        self.splashScreen.setIconSize(QSize(180, 180))
         self.splashScreen.raise_()
 
         desktop = QApplication.screens()[0].availableGeometry()
@@ -153,6 +154,9 @@ class MainWindow(FluentWindow):
         self.move(w//2 - self.width()//2, h//2 - self.height()//2)
         self.show()
         QApplication.processEvents()
+
+        # [test] 让启动屏幕显示更长时间, 因为现在启动太快了，根本看不清这个图标
+        QTimer.singleShot(5000, self.splashScreen.finish)
 
     def onSupport(self):
         language = cfg.get(cfg.language).value
