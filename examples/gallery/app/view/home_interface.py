@@ -70,6 +70,13 @@ class BannerWidget(QWidget):
             FEEDBACK_URL
         )
 
+        self.linkCardView.addCard(
+            FluentIcon.FEEDBACK,
+            self.tr('Send feedback'),
+            self.tr('Help us improve PyQt-Fluent-Widgets by providing feedback.'),
+            FEEDBACK_URL
+        )
+
     def paintEvent(self, e):
         super().paintEvent(e)
         painter = QPainter(self)
