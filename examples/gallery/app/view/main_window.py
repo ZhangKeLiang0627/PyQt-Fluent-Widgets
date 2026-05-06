@@ -98,6 +98,10 @@ class MainWindow(FluentWindow):
     def initNavigation(self):
         # add navigation items
         t = Translator()
+
+        # [test] 谁在顶部，谁第一个显示
+        # self.addSubInterface(self.tempInterface6, FIF.SETTING, 'Settings6', NavigationItemPosition.TOP)
+
         self.addSubInterface(self.homeInterface, FIF.HOME, self.tr('Home'))
         self.addSubInterface(self.iconInterface, Icon.EMOJI_TAB_SYMBOLS, t.icons)
         self.navigationInterface.addSeparator() # 分割线
@@ -121,7 +125,7 @@ class MainWindow(FluentWindow):
         self.addSubInterface(self.tempInterface3, FIF.SETTING, 'Settings3', NavigationItemPosition.SCROLL)
         self.addSubInterface(self.tempInterface4, FIF.SETTING, 'Settings4', NavigationItemPosition.SCROLL)
         self.addSubInterface(self.tempInterface5, FIF.SETTING, 'Settings5', NavigationItemPosition.SCROLL)
-        self.addSubInterface(self.tempInterface6, FIF.SETTING, 'Settings6', NavigationItemPosition.BOTTOM)
+        # self.addSubInterface(self.tempInterface6, FIF.SETTING, 'Settings6', NavigationItemPosition.BOTTOM)
 
         # add custom widget to bottom
         self.navigationInterface.addItem(
