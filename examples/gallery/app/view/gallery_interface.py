@@ -186,12 +186,12 @@ class GalleryInterface(ScrollArea):
         """
         super().__init__(parent=parent)
         self.view = QWidget(self)
-        self.toolBar = ToolBar(title, subtitle, self)
+        self.toolBar = ToolBar(title, subtitle, self) # 固定内容，无需设置widget
         self.vBoxLayout = QVBoxLayout(self.view)
 
         self.setHorizontalScrollBarPolicy(Qt.ScrollBarAlwaysOff)
-        self.setViewportMargins(0, self.toolBar.height(), 0, 0)
-        self.setWidget(self.view)
+        self.setViewportMargins(0, self.toolBar.height(), 0, 0) # 设置滚动区域顶部距离工具栏高度，避免遮挡工具栏
+        self.setWidget(self.view) # 设置滚动内容
         self.setWidgetResizable(True)
 
         self.vBoxLayout.setSpacing(30)
